@@ -46,7 +46,7 @@ class scan:
 		    scanner3 = os.system('nmap -sS -O ' +str(target)+'/24')
 		    print scanner3 
 		elif option == "4":
-			scanner4 = os.system("sudo nmap -sV -Pn -p 80 --script ms15-034.nse "+str(target))   	
+			scanner4 = os.system('sudo nmap -sS -Pn -p 80,443 --script ms15-034.nse --script-args "uri=/welcome.png" '+str(target))	   	
 
 			
 
