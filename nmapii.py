@@ -40,7 +40,7 @@ class scan:
 			scanner = os.system("nmap -T4 -A -v "+str(target))
 			print scanner
 		elif option == "2":
-			scanner2 = os.system("sudo nmap -p 443 --script ssl-heartbleed"+str(target))
+			scanner2 = os.system("sudo nmap -p 443 --script ssl-heartbleed "+str(target))
 			print scanner2
 		elif option == "3":
 		    scanner3 = os.system('nmap -sS -O ' +str(target)+'/24')
