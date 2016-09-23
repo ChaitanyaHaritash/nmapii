@@ -17,7 +17,7 @@ lol its basically meant for ppl like me :V lazy sitting on desk for hours.
 
 feel free making changes. Its an open source project :) 
 
-Special thanks to VirKid :) 
+Special thanks to VirKid & r00t-3xp10it :) 
 
 Greets : SSA [Suspicious Shell Activity] 
 
