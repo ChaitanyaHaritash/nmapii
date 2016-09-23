@@ -2,8 +2,8 @@
 
 Nmapii is a simple automated script coded in python which scans targets according to user's attack vector.
 ---
-== Installation ==
-check nmapii.py
+#Installation
+Check nmapii.py 
 ---
 #Some Screenshots
 About- Nmapii
