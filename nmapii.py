@@ -1,7 +1,7 @@
 #!/usr/share/env python 
 
 #Simple NMAP automated script Coded by !NDi G3@r / Chaitanya. which saves time , learning and setting up nmap commands. 
-#Special thanks to VirKid and r00t 3xp10it:)
+#Special thanks to VirKid and r00t-3xp10it:)
 #lol its basically meant for ppl like me :V lazy stiing on desk for hours 
 #feel free making changes. Its an open source project :) 
 
