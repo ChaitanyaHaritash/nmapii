@@ -18,6 +18,8 @@ cd ..
 cd nse 
 cp ms15-034.nse /usr/share/nmap/scripts
 cp phpipam.nse /usr/share/nmap/scripts
+cp filechecker.nse /usr/share/nmap/scripts
+sudo nmap --script-updatedb
 cd ..
 
 chmod +x nmapii
