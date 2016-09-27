@@ -26,7 +26,7 @@ class scanhelp:
 [14] SMB OS Discovery (Gathers Info About host running SMB and OS).
 [15] VNC Scan (Queries a VNC Server for its protocol version and supported security types).
 [16] Live hosts on an network.
-[17] phpipam 1.2.1 vulnerability 
+[17] phpipam 1.5 (multiple vulnerabilities)  
 [18] TelNet Scan (Grabs Info about target TelNet)
 [19] FTP Scan (Grabs Info about target FTP)
 [20] SSH Scan (Grabs Info about target SSH)
