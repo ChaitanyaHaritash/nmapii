@@ -1,5 +1,5 @@
 ---
--- Nmap NSE phpipam.nse - Version 1.4
+-- Nmap NSE phpipam.nse - Version 1.5
 -- Copy script to: /usr/share/nmap/scripts/phpipam.nse
 -- Update NSE database: sudo nmap --script-updatedb
 -- executing: nmap --script-help phpipam.nse
@@ -14,7 +14,7 @@ description = [[
 Module Author: r00t-3xp10it
 Vuln discover: Saeed reza
 NSE script to detect multiple vulnerabilitys in phpipam (1.2.1) open-source web IP address management application (IPAM).
-we can use script arguments to scan for a diferent url ( --script-args uri=<vulnerable url to scan> <target>).
+we can use script arguments to scan for a diferent url ( --script-args uri=<vulnerable url to scan> <target> )
 
 Some Syntax examples:
 nmap --script-help phpipam.nse
@@ -23,6 +23,7 @@ nmap -sV -Pn -p 80 --open --script phpipam.nse <target>
 nmap -sV -Pn -p 80 --open --reason --script phpipam.nse 192.168.1.0/24
 nmap -sS -Pn -p 80 --open --reason --script phpipam.nse --script-args uri=/phpipam.php <target>
 nmap -sS -T3 -iR 300 -Pn -p 80 --open --reason --script phpipam.nse -oN /root/phpipam-vuln-report.log
+
 ]]
 
 ---
@@ -35,10 +36,10 @@ nmap -sS -T3 -iR 300 -Pn -p 80 --open --reason --script phpipam.nse -oN /root/ph
 -- @output
 -- PORT   STATE SERVICE VERSION
 -- 80/tcp open  http    phpipam 1.2.1
--- | phpipam: 1.2.1 multiple vulnerabilities
--- |   State: VULNERABLE
--- |   Returned: 200 (likelly exploitable)
--- |     Disclosure date: 20 Mar 2016
+-- | phpipam:
+-- |   STATUS: VULNERABLE
+-- |   VERSION: 1.2.1 (likelly exploitable)
+-- |     Disclosure date: 21 set 2016
 -- |     Vuln discover: Saeed reza
 -- |     Module Author: r00t-3xp10it
 -- |
@@ -50,16 +51,16 @@ nmap -sS -T3 -iR 300 -Pn -p 80 --open --reason --script phpipam.nse -oN /root/ph
 -- |       [XSS POST] => http://[Site]/phpipam/app/admin/widgets/edit.php/wid=1><SCRIPT>ALERT(DOCUMENT.COOKIE);</SCRIPT>&action=edit
 -- |
 -- |     References:
--- |     Vendor: http://phpipam.net/
--- |     Vuln Discover: http://0day.today/exploit/25375
--- |     Module Author: https://sourceforge.net/u/peterubuntu10/profile/
+-- |       Vendor: http://phpipam.net/
+-- |       Vuln Discover: http://0day.today/exploit/25375
+-- |       Module Author: https://sourceforge.net/u/peterubuntu10/profile/
 -- |_
 -- @args payload.uri the path name to search. Default: /phpipam.html
 ---
 
 author = "r00t-3xp10it"
 license = "Same as Nmap--See http://nmap.org/book/man-legal.html"
-categories = {"discovery", "vuln"}
+categories = {"safe", "discovery", "vuln"}
 
 
 
@@ -72,9 +73,9 @@ local http = require "http"
 
 
 -- THE RULE SECTION --
-portrule = shortport.http
--- local uri = "/phpipam.html" --> updated to use script arguments
--- Seach for string stored in variable @args payload.uri
+-- portrule = shortport.http --> updated to scan only the selected ports/proto/services
+portrule = shortport.port_or_service({80, 443}, "http, https", "tcp", "open")
+-- local uri = "/phpipam.html" --> updated to use script @args payload.uri
 local uri = stdnse.get_script_args(SCRIPT_NAME..".uri") or "/phpipam.html"
 
 
@@ -90,19 +91,24 @@ local response = http.get(host, port, uri)
     -- check the phpipam version installed
     if ( title == "1.2.1" ) then
       -- VULNERABLE nse module output display
-      return "1.2.1 multiple vulnerabilities\n   State: VULNERABLE\n   Returned: "..response.status.." (likelly exploitable)\n     Disclosure date: 20 Mar 2016\n     Vuln discover: Saeed reza\n     Module Author: r00t-3xp10it\n\n     Description:\n       phpipam is an open-source web IP address management application, its goal is to provide light\n       modern and useful IP address management. It is php-based application with MySQL database backend,\n       using jQuery libraries, ajax and some HTML5/CSS3 features.\n       [SQLI GET] => http://[Site]/phpipam/?page=tools&section=changelog&subnetId=a&sPage=50'\n       [XSS POST] => http://[Site]/phpipam/app/admin/widgets/edit.php/wid=1><SCRIPT>ALERT(DOCUMENT.COOKIE);</SCRIPT>&action=edit\n\n     References:\n       Vendor: http://phpipam.net/\n       Vuln Discover: http://0day.today/exploit/25375\n       Module Author: https://sourceforge.net/u/peterubuntu10/profile/\n\n"
+      return "\n   STATUS: VULNERABLE\n   VERSION: "..title.." (likelly exploitable)\n     Disclosure date: 21 set 2016\n     Vuln discover: Saeed reza\n     Module Author: r00t-3xp10it\n\n     Description:\n       phpipam is an open-source web IP address management application, its goal is to provide light\n       modern and useful IP address management. It is php-based application with MySQL database backend,\n       using jQuery libraries, ajax and some HTML5/CSS3 features.\n       [SQLI GET] => http://[Site]/phpipam/?page=tools&section=changelog&subnetId=a&sPage=50'\n       [XSS POST] => http://[Site]/phpipam/app/admin/widgets/edit.php/wid=1><SCRIPT>ALERT(DOCUMENT.COOKIE);</SCRIPT>&action=edit\n\n     References:\n       Vendor: http://phpipam.net/\n       Vuln Discover: http://0day.today/exploit/25375\n       Module Author: https://sourceforge.net/u/peterubuntu10/profile/\n\n"
     else
       -- NOT VULNERABLE version install found (1.2.1) of phpipam in target system
-      return "\n  STATUS: NOT VULNERABLE\n    Returned:"..title.." INSTALL VERSION\n    Module Author: r00t-3xp10it\n\n"
+      return "\n  STATUS: NOT VULNERABLE\n    index: "..uri..": 200 Found\n    VERSION: "..title.." (wrong version)\n    Module Author: r00t-3xp10it\n\n"
     end
 
   -- check for diferent google return codes
   -- to display a NON VULNERABLE output...
   elseif ( response.status == 404 ) then
-    return "\n  STATUS: NOT VULNERABLE\n    Returned:"..response.status.." NOT FOUND\n    Module Author: r00t-3xp10it\n\n"
+    return "\n  STATUS: NOT VULNERABLE\n    Returned: "..response.status.." NOT FOUND\n    Module Author: r00t-3xp10it\n\n"
   elseif ( response.status == 400 ) then
-    return "\n  STATUS: NOT VULNERABLE\n    Returned:"..response.status.." BAD REQUEST\n    Module Author: r00t-3xp10it\n\n"
+    return "\n  STATUS: NOT VULNERABLE\n    Returned: "..response.status.." BAD REQUEST\n    Module Author: r00t-3xp10it\n\n"
+  elseif ( response.status == 401 ) then
+    return "\n  STATUS: NOT VULNERABLE\n    Returned: "..response.status.." UNAUTHORIZED\n    Module Author: r00t-3xp10it\n\n"
+  elseif ( response.status == 302 ) then
+    return "\n  STATUS: NOT VULNERABLE\n    Returned: "..response.status.." REDIRECTED\n    Module Author: r00t-3xp10it\n\n"
   else
-    return "\n  STATUS: NOT VULNERABLE\n    Returned:"..response.status.." response code\n    Module Author: r00t-3xp10it\n\n"
+    -- I dont want to write more response.status ... so i let my module displays the returned code :D
+    return "\n  STATUS: NOT VULNERABLE\n    Returned: "..response.status.." response code\n    Module Author: r00t-3xp10it\n\n"
   end
 end
