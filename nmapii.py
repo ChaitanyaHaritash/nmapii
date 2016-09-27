@@ -107,21 +107,25 @@ class rugged:
 			print scanner16
 			print colored ('[+] Scan Has Been Completed , scan logs saved in /home/.nmapii-logs/ [+]' , 'green' , attrs=['bold'])
 		elif option == "17":
-			scanner17 = os.system('nmap -sV -Pn -p 80 -oN /home/.nmapii-logs/other_vulns/phpipam --open --reason --script phpipam.nse,ip-geolocation-geoplugin.nse '+str(target)+'/24')
+			scanner17 = os.system('sudo nmap -sV -Pn -p 80 -oN /home/.nmapii-logs/other_vulns/phpipam --open --reason --script phpipam.nse,file-checker.nse --script-args read=true,ip-geolocation-geoplugin.nse '+str(target))
 			print scanner17
 			print colored ('[+] Scan Has Been Completed , scan logs saved in /home/.nmapii-logs/ [+]' , 'green' , attrs=['bold'])
 		elif option == "18":
-			scanner18 = os.system('nmap -T4 -sS -Pn -oN /home/.nmapii-logs/TELNET/telnet --append-output -O --script dns-brute.nse,ip-geolocation-geoplugin.nse -p 23 '+str(target))	
+			scanner18 = os.system('sudo nmap -T4 -sS -Pn -oN /home/.nmapii-logs/TELNET/telnet --append-output -O --script dns-brute.nse,ip-geolocation-geoplugin.nse -p 23 '+str(target))	
 			print scanner18
 			print colored ('[+] Scan Has Been Completed , scan logs saved in /home/.nmapii-logs/ [+]' , 'green' , attrs=['bold'])			
 		elif option == "19":
-			scanner19 = os.system('nmap -T4 -sS -Pn -O -oN /home/.nmapii-logs/FTP/ftp --script ftp-anon.nse,ftp-brute.nse,dns-brute.nse,ip-geolocation-geoplugin.nse -p 21 '+str(target))
+			scanner19 = os.system('sudo nmap -T4 -sS -Pn -O -oN /home/.nmapii-logs/FTP/ftp --script ftp-anon.nse,ftp-brute.nse,dns-brute.nse,ip-geolocation-geoplugin.nse -p 21 '+str(target))
 			print scanner19
 			print colored ('[+] Scan Has Been Completed , scan logs saved in /home/.nmapii-logs/ [+]' , 'green' , attrs=['bold'])			
 		elif option == "20":
-			scanner20 = os.system('nmap -T4 -sS -Pn -O -oN /home/.nmapii-logs/SSH/ssh --script ssh-hostkey.nse,ssh2-enum-algos.nse,dns-brute.nse,ip-geolocation-geoplugin.nse -p 22 '+str(target))
+			scanner20 = os.system('sudo nmap -T4 -sS -Pn -O -oN /home/.nmapii-logs/SSH/ssh --script ssh-hostkey.nse,ssh2-enum-algos.nse,dns-brute.nse,ip-geolocation-geoplugin.nse -p 22 '+str(target))
 			print scanner20
 			print colored ('[+] Scan Has Been Completed , scan logs saved in /home/.nmapii-logs/ [+]' , 'green' , attrs=['bold'])
+		elif option == "21":
+			scanner20 = os.system('sudo nmap -sS -Pn -p 80 -oN /home/.nmapii-logs/other_vulns/file-checker --script file-checker.nse,dns-brute.nse,ip-geolocation-geoplugin.nse  --script-args "file=/robots.txt,read=true"  '+str(target))
+			print scanner20
+			print colored ('[+] Scan Has Been Completed , scan logs saved in /home/.nmapii-logs/ [+]' , 'green' , attrs=['bold'])			
 
 if __name__ == "__main__":
 	options=[str(i) for i in range(21)]
