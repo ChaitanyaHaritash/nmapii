@@ -128,7 +128,7 @@ class rugged:
 			print colored ('[+] Scan Has Been Completed , scan logs saved in /home/.nmapii-logs/ [+]' , 'green' , attrs=['bold'])			
 
 if __name__ == "__main__":
-	options=[str(i) for i in range(21)]
+	options=[str(i) for i in range(22)]
 	options.append('help')
 	options.append('about')
 	options.append('scans')
