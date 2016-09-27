@@ -30,7 +30,7 @@ class scanhelp:
 [18] TelNet Scan (Grabs Info about target TelNet)
 [19] FTP Scan (Grabs Info about target FTP)
 [20] SSH Scan (Grabs Info about target SSH)
-[21] File Checker (check/read contents of the selected file/path in target webserver |Default = robots.txt|)
+[21] File Checker (check/read contents of the selected file/path in target webserver.)
 
 			
 				  '''
