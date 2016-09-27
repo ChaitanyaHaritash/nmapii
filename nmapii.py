@@ -123,10 +123,10 @@ class rugged:
 			print scanner20
 			print colored ('[+] Scan Has Been Completed , scan logs saved in /home/.nmapii-logs/ [+]' , 'green' , attrs=['bold'])
 		elif option == "21":
-			scanner20 = os.system('sudo nmap -sS -Pn -p 80 -oN /home/.nmapii-logs/other_vulns/file-checker --script file-checker.nse,dns-brute.nse,ip-geolocation-geoplugin.nse  --script-args "file=/robots.txt,read=true"  '+str(target))
-			print scanner20
-			print colored ('[+] Scan Has Been Completed , scan logs saved in /home/.nmapii-logs/ [+]' , 'green' , attrs=['bold'])			
-
+			args = str(raw_input('Define file-type you wanted to scan > '))
+			scanner21 = os.system('sudo nmap -sS -Pn -p 80 -oN /home/.nmapii-logs/other_vulns/file-checker --script file-checker.nse,dns-brute.nse,ip-geolocation-geoplugin.nse  --script-args "file=/'+str(args)+',read=true"  '+str(target))
+			print scanner21
+			print colored ('[+] Scan Has Been Completed , scan logs saved in /home/.nmapii-logs/ [+]' , 'green' , attrs=['bold'])
 if __name__ == "__main__":
 	options=[str(i) for i in range(22)]
 	options.append('help')
