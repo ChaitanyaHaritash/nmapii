@@ -1,6 +1,6 @@
 #!/usr/share/env python 
 
-#Simple NMAP automated script Coded by !NDi G3@r / Chaitanya. which saves time , learning and setting up nmap commands. 
+#Simple NMAP automated script Coded by Chaitanya. which saves time , learning and setting up nmap commands. 
 #Special thanks to VirKid and r00t-3xp10it:)
 #lol its basically meant for ppl like me :V lazy stiing on desk for hours 
 #feel free making changes. Its an open source project :) 
@@ -28,7 +28,7 @@ banner = colored ('''
 | $$ \  $$| $$ \/  | $$| $$  | $$| $$  Ver 1.1  | $$| $$ 
 |__/  \__/|__/     |__/|__/  |__/|__/           |__/|__/ 
                                                         ''' , 'cyan')
-name = colored ('''         SCRIPT Coded By !NDi G3@r / Chaitanya ''' , 'cyan')
+name = colored ('''         SCRIPT Coded By Chaitanya ''' , 'cyan')
 usage = colored ('''          [+] Usage ? hit "help" for help [+]''' , 'cyan')
 quitting = colored ("[+] Exitting ....... :) ", 'yellow' , attrs=['bold'])
 
